@@ -1,0 +1,843 @@
+:root {
+  --ink: #20231c;
+  --ink-soft: #4e5348;
+  --paper: #fff8dd;
+  --surface: #fffdf4;
+  --yellow: #ffe266;
+  --yellow-deep: #f5c93f;
+  --mint: #76dbd0;
+  --coral: #ff7d70;
+  --violet: #9d83ff;
+  --line: #d9d1b8;
+  --shadow: 8px 10px 0 rgba(32, 35, 28, 0.12);
+  --radius-lg: 28px;
+  --radius-md: 17px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 12% 12%, rgba(255, 226, 102, 0.48), transparent 28rem),
+    radial-gradient(circle at 90% 78%, rgba(118, 219, 208, 0.28), transparent 28rem),
+    #f8f1d9;
+  color: var(--ink);
+  font-family: "Aptos", "Segoe UI", "Microsoft YaHei", sans-serif;
+  line-height: 1.5;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(32, 35, 28, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(32, 35, 28, 0.035) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  width: 230px;
+  height: 230px;
+  right: -70px;
+  top: 30%;
+  z-index: -1;
+  border: 38px solid rgba(255, 125, 112, 0.14);
+  border-radius: 50%;
+}
+
+button,
+a {
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  color: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--violet);
+  outline-offset: 3px;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+.page-noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.25;
+  background-image: radial-gradient(rgba(32, 35, 28, 0.12) 0.65px, transparent 0.65px);
+  background-size: 6px 6px;
+  mix-blend-mode: multiply;
+}
+
+.topbar {
+  position: relative;
+  z-index: 5;
+  width: min(calc(100% - 36px), 1180px);
+  min-height: 78px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+}
+
+.brand-avatar {
+  width: 43px;
+  height: 43px;
+  object-fit: cover;
+  object-position: 50% 17%;
+  border: 2px solid var(--ink);
+  border-radius: 13px;
+  background: var(--yellow);
+  transform: rotate(-3deg);
+}
+
+.brand b,
+.brand small {
+  display: block;
+}
+
+.brand b {
+  font-size: 1.05rem;
+  letter-spacing: -0.04em;
+}
+
+.brand small {
+  margin-top: 1px;
+  color: var(--ink-soft);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 0.57rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.mini-button {
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid rgba(32, 35, 28, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 253, 244, 0.72);
+  color: var(--ink-soft);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mini-button:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.game-page {
+  position: relative;
+  z-index: 2;
+  width: min(calc(100% - 36px), 1180px);
+  min-height: calc(100vh - 128px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(300px, 360px) minmax(210px, 0.86fr);
+  align-items: center;
+  gap: clamp(22px, 4vw, 54px);
+  padding: 26px 0 56px;
+}
+
+.intro-card,
+.side-panel {
+  min-width: 0;
+}
+
+.intro-card {
+  align-self: center;
+}
+
+.intro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.eyebrow {
+  color: var(--ink-soft);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.signal {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  border: 1px solid rgba(32, 35, 28, 0.18);
+  border-radius: 6px;
+  background: rgba(255, 253, 244, 0.62);
+  font: 700 0.58rem/1 "Cascadia Code", Consolas, monospace;
+}
+
+.signal i,
+.live-label i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2ca55e;
+  box-shadow: 0 0 0 3px rgba(44, 165, 94, 0.13);
+}
+
+.mascot-stage {
+  position: relative;
+  width: min(100%, 235px);
+  aspect-ratio: 1.08;
+  margin-bottom: 22px;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  border-radius: 44% 44% 22px 22px;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.7), transparent 38%),
+    linear-gradient(150deg, #fff1a7, #f5d954);
+  box-shadow: 8px 9px 0 rgba(32, 35, 28, 0.1);
+}
+
+.mascot-stage::before,
+.mascot-stage::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.mascot-stage::before {
+  width: 22px;
+  height: 22px;
+  left: 23px;
+  top: 32px;
+}
+
+.mascot-stage::after {
+  width: 12px;
+  height: 12px;
+  right: 28px;
+  top: 72px;
+}
+
+.mascot {
+  position: absolute;
+  width: 72%;
+  height: 93%;
+  left: 14%;
+  bottom: -6%;
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(0 8px 10px rgba(84, 65, 12, 0.16));
+}
+
+.mascot-bubble {
+  position: absolute;
+  right: 7px;
+  top: 10px;
+  z-index: 2;
+  padding: 7px 9px;
+  border: 1.5px solid var(--ink);
+  border-radius: 11px 11px 11px 3px;
+  background: var(--surface);
+  font-size: 0.66rem;
+  font-weight: 800;
+  line-height: 1.35;
+  text-align: center;
+  transform: rotate(3deg);
+}
+
+h1 {
+  margin: 0;
+  font-family: "Aptos Display", "Arial Black", "Microsoft YaHei", sans-serif;
+  font-size: clamp(2.8rem, 5.4vw, 5.1rem);
+  font-weight: 900;
+  letter-spacing: -0.075em;
+  line-height: 0.9;
+}
+
+h1 em {
+  color: #e35951;
+  font-style: normal;
+}
+
+.intro-copy {
+  max-width: 300px;
+  margin: 20px 0 18px;
+  color: var(--ink-soft);
+  font-size: 0.93rem;
+  line-height: 1.7;
+}
+
+.feature-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.feature-chips span {
+  padding: 5px 8px;
+  border: 1px solid rgba(32, 35, 28, 0.17);
+  border-radius: 999px;
+  background: rgba(255, 253, 244, 0.54);
+  color: var(--ink-soft);
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+
+.arena {
+  align-self: center;
+  min-width: 0;
+}
+
+.mobile-scorebar {
+  display: none;
+}
+
+.board-shell {
+  width: min(100%, 360px);
+  margin-inline: auto;
+  padding: 12px;
+  border: 2px solid var(--ink);
+  border-radius: 28px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.board-topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 1px 4px 10px;
+}
+
+.live-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font: 800 0.55rem/1 "Cascadia Code", Consolas, monospace;
+  letter-spacing: 0.08em;
+}
+
+.status-value {
+  color: var(--ink-soft);
+  font-size: 0.64rem;
+  font-weight: 700;
+}
+
+.canvas-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 19px;
+  background: #20241e;
+}
+
+#gameCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 2;
+}
+
+.game-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255, 230, 102, 0.25), transparent 40%),
+    rgba(22, 25, 20, 0.91);
+  color: white;
+  text-align: center;
+  backdrop-filter: blur(5px);
+}
+
+.game-overlay[hidden] {
+  display: none;
+}
+
+.overlay-mascot {
+  width: 102px;
+  height: 102px;
+  margin-bottom: 12px;
+  object-fit: cover;
+  object-position: 50% 17%;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 31px;
+  background: var(--yellow);
+  transform: rotate(-3deg);
+}
+
+.overlay-kicker {
+  color: var(--yellow);
+  font: 800 0.57rem/1 "Cascadia Code", Consolas, monospace;
+  letter-spacing: 0.12em;
+}
+
+.game-overlay h2 {
+  margin: 10px 0 9px;
+  font-size: 2.15rem;
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+
+.game-overlay p {
+  max-width: 255px;
+  margin: 0 0 20px;
+  color: #bec2b8;
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.primary-button {
+  min-height: 43px;
+  padding: 0 18px;
+  border: 1px solid var(--ink);
+  border-radius: 10px;
+  background: var(--yellow);
+  color: var(--ink);
+  font-size: 0.79rem;
+  font-weight: 850;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 rgba(255, 255, 255, 0.32);
+}
+
+.primary-button:hover {
+  transform: translateY(-1px);
+}
+
+.touch-controls {
+  width: min(100%, 360px);
+  margin: 13px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.control-button {
+  min-height: 44px;
+  border: 1.5px solid var(--ink);
+  border-radius: 11px;
+  background: rgba(255, 253, 244, 0.85);
+  font-size: 1.18rem;
+  font-weight: 800;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.control-button:active,
+.control-button.pressed {
+  transform: translateY(2px);
+  background: var(--yellow);
+}
+
+.control-button.rotate {
+  background: var(--violet);
+  color: white;
+}
+
+.control-button.wide {
+  grid-column: span 2;
+  font-size: 0.78rem;
+}
+
+.control-button.accent {
+  background: var(--yellow);
+}
+
+.side-panel {
+  display: grid;
+  gap: 12px;
+}
+
+.score-card,
+.preview-grid,
+.controls-card {
+  border: 1.5px solid rgba(32, 35, 28, 0.74);
+  border-radius: var(--radius-md);
+  background: rgba(255, 253, 244, 0.76);
+}
+
+.score-card {
+  padding: 16px;
+}
+
+.panel-label {
+  color: var(--ink-soft);
+  font: 800 0.58rem/1 "Cascadia Code", Consolas, monospace;
+  letter-spacing: 0.1em;
+}
+
+.score-card > strong {
+  display: block;
+  margin-top: 5px;
+  font-family: "Aptos Display", "Arial Black", sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: -0.07em;
+  line-height: 1;
+}
+
+.score-divider {
+  height: 1px;
+  margin: 14px 0 12px;
+  background: var(--line);
+}
+
+.mini-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.mini-stats span,
+.mini-stats b {
+  display: block;
+}
+
+.mini-stats span {
+  color: var(--ink-soft);
+  font-size: 0.6rem;
+}
+
+.mini-stats b {
+  margin-top: 2px;
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 0.84rem;
+}
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 13px;
+}
+
+.preview-grid canvas {
+  width: 100%;
+  height: auto;
+  margin-top: 8px;
+}
+
+.preview-grid kbd {
+  margin-left: 3px;
+  padding: 1px 4px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: white;
+  font-family: inherit;
+  font-size: 0.53rem;
+}
+
+.action-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+}
+
+.secondary-button {
+  min-height: 38px;
+  border: 1px solid rgba(32, 35, 28, 0.3);
+  border-radius: 9px;
+  background: rgba(255, 253, 244, 0.74);
+  font-size: 0.68rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.secondary-button:hover {
+  border-color: var(--ink);
+}
+
+.controls-card {
+  padding: 14px;
+}
+
+.controls-card dl {
+  display: grid;
+  gap: 7px;
+  margin: 12px 0 0;
+}
+
+.controls-card dl div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.controls-card dt {
+  min-width: 68px;
+  padding: 3px 6px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: white;
+  font: 700 0.6rem/1.3 "Cascadia Code", Consolas, monospace;
+  text-align: center;
+}
+
+.controls-card dd {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.68rem;
+}
+
+.footer {
+  position: relative;
+  z-index: 2;
+  width: min(calc(100% - 36px), 1180px);
+  min-height: 50px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  color: rgba(32, 35, 28, 0.56);
+  font-size: 0.62rem;
+}
+
+@media (max-width: 960px) {
+  .game-page {
+    grid-template-columns: minmax(170px, 0.75fr) minmax(290px, 340px) minmax(185px, 0.7fr);
+    gap: 20px;
+  }
+
+  .mascot-stage {
+    width: 185px;
+  }
+
+  .intro-copy {
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .topbar {
+    min-height: 66px;
+  }
+
+  .brand small {
+    display: none;
+  }
+
+  .mini-button:first-child {
+    display: none;
+  }
+
+  .game-page {
+    width: min(calc(100% - 22px), 390px);
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px 0 38px;
+  }
+
+  .intro-card {
+    display: grid;
+    grid-template-columns: 86px 1fr;
+    grid-template-areas:
+      "mascot title"
+      "mascot copy";
+    gap: 3px 14px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .intro-header,
+  .feature-chips {
+    display: none;
+  }
+
+  .mascot-stage {
+    grid-area: mascot;
+    width: 86px;
+    height: 96px;
+    margin: 0;
+    border-radius: 22px;
+  }
+
+  .mascot {
+    width: 82%;
+    left: 9%;
+  }
+
+  .mascot-bubble {
+    display: none;
+  }
+
+  h1 {
+    grid-area: title;
+    font-size: 2.25rem;
+  }
+
+  .intro-copy {
+    grid-area: copy;
+    margin: 5px 0 0;
+    font-size: 0.72rem;
+    line-height: 1.5;
+  }
+
+  .arena {
+    order: 2;
+    width: 100%;
+  }
+
+  .side-panel {
+    order: 3;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+  }
+
+  .controls-card {
+    display: none;
+  }
+
+  .score-card {
+    grid-column: span 1;
+  }
+
+  .preview-grid {
+    grid-column: span 1;
+  }
+
+  .action-row {
+    grid-column: 1 / -1;
+  }
+
+  .mobile-scorebar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    border: 1.5px solid var(--ink);
+    border-radius: 12px;
+    background: var(--ink);
+  }
+
+  .mobile-scorebar div {
+    padding: 8px 10px;
+    background: rgba(255, 253, 244, 0.86);
+  }
+
+  .mobile-scorebar span,
+  .mobile-scorebar strong {
+    display: block;
+  }
+
+  .mobile-scorebar span {
+    color: var(--ink-soft);
+    font: 700 0.5rem/1 "Cascadia Code", Consolas, monospace;
+  }
+
+  .mobile-scorebar strong {
+    margin-top: 3px;
+    font: 800 0.9rem/1 "Cascadia Code", Consolas, monospace;
+  }
+
+  .board-shell {
+    width: min(100%, 340px);
+    padding: 9px;
+    border-radius: 22px;
+  }
+
+  .touch-controls {
+    width: min(100%, 340px);
+  }
+
+  .footer {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .footer span:last-child {
+    display: none;
+  }
+}
+
+@media (max-width: 390px) {
+  .game-page {
+    width: calc(100% - 16px);
+  }
+
+  .board-shell,
+  .touch-controls {
+    width: min(100%, 310px);
+  }
+
+  .overlay-mascot {
+    width: 82px;
+    height: 82px;
+  }
+
+  .game-overlay h2 {
+    font-size: 1.8rem;
+  }
+
+  .side-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .score-card,
+  .preview-grid,
+  .action-row {
+    grid-column: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

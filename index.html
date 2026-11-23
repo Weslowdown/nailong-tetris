@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fff5cf">
+  <meta name="description" content="一个用奶龙图片装饰方块的轻量俄罗斯方块游戏。">
+  <title>奶龙方块 · Nailong Tetris</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-noise" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="奶龙方块首页">
+      <img class="brand-avatar" src="assets/nailong-block.png" alt="">
+      <span><b>奶龙方块</b><small>NAILONG TETRIS</small></span>
+    </a>
+    <div class="header-actions">
+      <button class="mini-button" id="soundButton" type="button" aria-pressed="true">声音：开</button>
+      <a class="mini-button" href="https://github.com/Weslowdown/nailong-tetris">GitHub ↗</a>
+    </div>
+  </header>
+
+  <main class="game-page">
+    <section class="intro-card" aria-labelledby="intro-title">
+      <header class="intro-header">
+        <span class="eyebrow">A VERY SERIOUS GAME</span>
+        <span class="signal"><i></i> READY</span>
+      </header>
+      <div class="mascot-stage">
+        <img class="mascot" src="assets/nailong-full.png" alt="奶龙全身形象">
+        <span class="mascot-bubble">今天也要<br>完美消行！</span>
+      </div>
+      <h1 id="intro-title">把奶龙<br><em>排整齐。</em></h1>
+      <p class="intro-copy">经典俄罗斯方块，加一点圆滚滚的快乐。堆满一行，全体奶龙一起下班。</p>
+      <div class="feature-chips" aria-label="游戏特点">
+        <span>手机可玩</span>
+        <span>零依赖</span>
+        <span>自动存档</span>
+      </div>
+    </section>
+
+    <section class="arena" aria-label="游戏区域">
+      <div class="mobile-scorebar">
+        <div><span>SCORE</span><strong id="mobileScore">0</strong></div>
+        <div><span>LINES</span><strong id="mobileLines">0</strong></div>
+        <div><span>LEVEL</span><strong id="mobileLevel">1</strong></div>
+      </div>
+
+      <div class="board-shell">
+        <div class="board-topline">
+          <span class="live-label"><i></i> NOW FALLING</span>
+          <span id="statusValue" class="status-value" role="status" aria-live="polite">等待开始</span>
+        </div>
+        <div class="canvas-wrap">
+          <canvas id="gameCanvas" aria-label="俄罗斯方块游戏棋盘" role="img">
+            你的浏览器需要支持 Canvas 才能运行这个游戏。
+          </canvas>
+          <div class="game-overlay" id="gameOverlay">
+            <img class="overlay-mascot nailong-avatar" alt="">
+            <span class="overlay-kicker" id="overlayKicker">READY TO DROP</span>
+            <h2 id="overlayTitle">奶龙方块</h2>
+            <p id="overlayText">用方向键移动和旋转，把奶龙们排成完整的一行。</p>
+            <button class="primary-button" id="primaryButton" type="button">开始堆奶龙</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="touch-controls" aria-label="触屏操作">
+        <button class="control-button" id="leftButton" type="button" aria-label="向左移动">←</button>
+        <button class="control-button rotate" id="rotateButton" type="button" aria-label="旋转方块">↻</button>
+        <button class="control-button" id="rightButton" type="button" aria-label="向右移动">→</button>
+        <button class="control-button wide" id="downButton" type="button" aria-label="向下移动">↓ 加速</button>
+        <button class="control-button accent wide" id="dropButton" type="button" aria-label="直接落下">落下</button>
+      </div>
+    </section>
+
+    <aside class="side-panel" aria-label="分数和操作面板">
+      <section class="score-card">
+        <span class="panel-label">SCORE</span>
+        <strong id="scoreValue">0</strong>
+        <div class="score-divider"></div>
+        <div class="mini-stats">
+          <div><span>消除行</span><b id="linesValue">0</b></div>
+          <div><span>等级</span><b id="levelValue">1</b></div>
+          <div><span>最高分</span><b id="bestValue">0</b></div>
+        </div>
+      </section>
+
+      <section class="preview-grid">
+        <div>
+          <span class="panel-label">NEXT</span>
+          <canvas id="nextCanvas" aria-label="下一个方块"></canvas>
+        </div>
+        <div>
+          <span class="panel-label">HOLD <kbd>C</kbd></span>
+          <canvas id="holdCanvas" aria-label="暂存方块"></canvas>
+        </div>
+      </section>
+
+      <div class="action-row">
+        <button class="secondary-button" id="pauseButton" type="button">暂停</button>
+        <button class="secondary-button" id="holdButton" type="button">暂存</button>
+        <button class="secondary-button" id="restartButton" type="button">重开</button>
+      </div>
+
+      <section class="controls-card">
+        <span class="panel-label">KEYBOARD</span>
+        <dl>
+          <div><dt>← →</dt><dd>移动</dd></div>
+          <div><dt>↑ / X</dt><dd>旋转</dd></div>
+          <div><dt>↓</dt><dd>加速下落</dd></div>
+          <div><dt>Space</dt><dd>直接落下</dd></div>
+          <div><dt>P</dt><dd>暂停</dd></div>
+        </dl>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <span>奶龙方块 · 本地存档 · 无需登录</span>
+    <span>Built for fun, one row at a time.</span>
+  </footer>
+
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
