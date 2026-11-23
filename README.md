@@ -47,6 +47,8 @@ node --test tests
 
 ## GitHub Pages
 
+Play now: <https://weslowdown.github.io/nailong-tetris/>
+
 仓库包含 `.github/workflows/pages.yml`。推送到 `main` 后，在仓库设置中选择
 `GitHub Actions` 作为 Pages 来源，即可发布无需安装的网页版游戏。
 
